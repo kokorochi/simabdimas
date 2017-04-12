@@ -35,7 +35,7 @@
 <!-- START @META SECTION -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Halaman Tidak Ditemukan | LP USU - Lembaga Penelitian</title>
+    <title>Halaman Tidak Ditemukan | LPM USU - Lembaga Pengabdian Masyarakat</title>
     <!--/ END META SECTION -->
 
 

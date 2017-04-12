@@ -47,7 +47,7 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center border-right">ID</th>
-                                        <th>Jenis Penelitian</th>
+                                        <th>Jenis Pengabdian</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                     </thead>
@@ -75,7 +75,7 @@
                                     <tfoot>
                                     <tr>
                                         <th class="text-center border-right">ID</th>
-                                        <th>Jenis Penelitian</th>
+                                        <th>Jenis Pengabdian</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                     </tfoot>

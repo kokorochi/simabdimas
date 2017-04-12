@@ -29,7 +29,7 @@ $errors->has('member_nidn.' . $ctr_old) || old('member_nidn.' . $ctr_old)
         <div class="panel">
             <div class="panel-heading">
                 <div class="pull-left">
-                    <h3 class="panel-title">Anggota Penelitian</h3>
+                    <h3 class="panel-title">Anggota Pengabdian</h3>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-sm" data-action="collapse" data-container="body" data-toggle="tooltip"

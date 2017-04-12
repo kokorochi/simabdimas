@@ -66,7 +66,7 @@ $errors->has('period_id')           || old('period_id')
                             </div>
 
                             <label for="own-research_type" class="col-sm-4 col-md-3 control-label">Jenis
-                                Penelitian</label>
+                                Pengabdian</label>
                             <div class="col-sm-7 mb-10">
                                 <select name="own-research_type" class="form-control input-sm" {{$disabled}}>
                                     @foreach($propose_relation->research_types as $research_type)
@@ -145,7 +145,7 @@ $errors->has('period_id')           || old('period_id')
                                 </div>
 
                                 <label for="research_name" class="col-xs-12 col-sm-4 col-md-3 control-label">Jenis
-                                    Penelitian</label>
+                                    Pengabdian</label>
                                 <div class="col-sm-7 mb-10">
                                     <input name="research_name" class="form-control input-sm" type="text" disabled
                                            value="{{ $propose_relation->period->researchType->research_name }}">

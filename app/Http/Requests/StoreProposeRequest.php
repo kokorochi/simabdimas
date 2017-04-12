@@ -34,22 +34,30 @@ class StoreProposeRequest extends FormRequest {
             if ($this->is_own !== '1')
             {
                 $rules = [
+                    //Partner
+                    'partner_name.*'          => 'required',
+                    'partner_territory.*'     => 'required',
+                    'partner_city.*'          => 'required',
+                    'partner_province.*'      => 'required',
+                    'partner_distance.*'      => 'required|digits_between:1,2',
+
                     //Check Detail
-                    'faculty_code'       => 'required',
-                    'title'              => 'required',
-                    'output_type'        => 'required',
-                    'total_amount'       => 'required',
-                    'areas_of_expertise' => 'required',
-                    'time_period'        => 'required|max:2',
-                    'address'            => 'required',
-                    'student_involved'   => 'required|digits_between:1,2',
-                    'bank_account_no'    => 'required|numeric',
-                    'bank_account_name'  => 'required|max:100',
+                    'faculty_code'            => 'required',
+                    'title'                   => 'required',
+                    'output_type'             => 'required',
+                    'total_amount'            => 'required',
+                    'areas_of_expertise'      => 'required',
+                    'time_period'             => 'required|max:2',
+                    'address'                 => 'required',
+                    'student_involved'        => 'required|digits_between:1,2',
+                    'bank_account_no'         => 'required|numeric',
+                    'bank_account_name'       => 'required|max:100',
                     //End Check Detail
 
                     //Check Upload
-                    'file_propose'       => 'mimes:pdf|max:5120',
-                    'file_propose_final' => 'mimes:pdf|max:5120'
+                    'file_partner_contract.*' => 'required|mimes:pdf|max:5120',
+                    'file_propose'            => 'mimes:pdf|max:5120',
+                    'file_propose_final'      => 'mimes:pdf|max:5120',
                     //End Check Detail
                 ];
             } else
@@ -73,6 +81,7 @@ class StoreProposeRequest extends FormRequest {
         {
             $rules = [
                 'student_involved'   => 'digits_between:1,2',
+                'partner_distance.*' => 'digits_between:1,2',
             ];
         }
 
@@ -82,11 +91,20 @@ class StoreProposeRequest extends FormRequest {
     public function messages()
     {
         return [
+            'partner_name.*.required'          => 'Nama partner tidak boleh kosong',
+            'partner_territory.*.required'     => 'Wilayah Mitra (Desa/Kecamatan) tidak boleh kosong',
+            'partner_city.*.required'          => 'Kabupaten/Kota tidak boleh kosong',
+            'partner_province.*.required'      => 'Provinsi tidak boleh kosong',
+            'partner_distance.*.required'      => 'Jarak PT ke lokasi mitra (KM) tidak boleh kosong',
+            'file_partner_contract.*.required' => 'Surat Kesediaan kerja sama mitra harus diunggah',
+            'file_partner_contract.*.mimes'    => 'Surat Kesediaan kerja sama mitra harus dalam PDF',
+            'file_partner_contract.*.max'      => 'Surat Kesediaan kerja sama mitra maksimal 5MB',
+
             'member_display.*.required' => 'Nama Anggota tidak boleh kosong',
             'member_nidn.*.required'    => 'NIDN Anggota tidak boleh kosong',
 
             'faculty_code.required'           => 'Fakultas tidak boleh kosong',
-            'title.required'                  => 'Judul Penelitian tidak boleh kosong',
+            'title.required'                  => 'Judul Pengabdian tidak boleh kosong',
             'output_type.required'            => 'Luaran tidak boleh kosong',
             'total_amount.required'           => 'Jumlah Dana tidak boleh kosong',
             'time_period.required'            => 'Jangka Waktu tidak boleh kosong',
@@ -203,6 +221,16 @@ class StoreProposeRequest extends FormRequest {
             }
         }
 
+        //Check file partner contract
+//        foreach ($this->input('partner_name') as $key => $item)
+//        {
+//            if ($this->file('file_partner_contract.' . $key) === null)
+//            {
+//                array_push($ret, 'Surat Kesediaan Kerjasama harus diunggah');
+//                break 1;
+//            }
+//        }
+
         //Check head email
         $lecturer = Lecturer::where('employee_card_serial_number', Auth::user()->nidn)->first();
         if (! filter_var($lecturer->email, FILTER_VALIDATE_EMAIL))
@@ -316,7 +344,7 @@ class StoreProposeRequest extends FormRequest {
 //                        if ($i_as_head >= 2)
 //                        {
 ////                            array_push($ret, '1 Dosen hanya bisa menjadi ( ketua penlitian sebanyak 1 kali dan menjadi anggota sebanyak 2 kali ) atau ( anggota sebanyak 3 kali ) dalam 1 tahun');
-//                            array_push($ret, 'Batas maksimal untuk mengajukan usulan penelitian sudah mencapai batas! (2 kali ketua)');
+//                            array_push($ret, 'Batas maksimal untuk mengajukan usulan pengabdian sudah mencapai batas! (2 kali ketua)');
 //                            break 2;
 //                        }
 //                    }
@@ -336,7 +364,7 @@ class StoreProposeRequest extends FormRequest {
 //                            if ($head_n_member >= 2)
 //                            {
 ////                                array_push($ret, '1 Dosen hanya bisa menjadi ( ketua penlitian sebanyak 1 kali dan menjadi anggota sebanyak 2 kali ) atau ( anggota sebanyak 3 kali ) dalam 1 tahun');
-//                                $err_str = 'Batas maksimal untuk mengajukan usulan penelitian sudah mencapai batas! (' . $i_as_member . ' kali anggota';
+//                                $err_str = 'Batas maksimal untuk mengajukan usulan pengabdian sudah mencapai batas! (' . $i_as_member . ' kali anggota';
 //                                if ($i_as_head > 0)
 //                                {
 //                                    $err_str = $err_str . ' & ' . $i_as_head . ' kali ketua)';

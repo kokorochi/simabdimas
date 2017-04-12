@@ -50,7 +50,7 @@
                                             <th class="text-center">Tahun</th>
                                             <th class="text-center">Judul</th>
                                             <th class="text-center">Scheme</th>
-                                            <th class="text-center">Status Penelitian</th>
+                                            <th class="text-center">Status Pengabdian</th>
                                             <th class="text-center">Status Luaran</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
@@ -110,7 +110,7 @@
                                             <th class="text-center">Tahun</th>
                                             <th class="text-center">Judul</th>
                                             <th class="text-center">Scheme</th>
-                                            <th class="text-center">Status Penelitian</th>
+                                            <th class="text-center">Status Pengabdian</th>
                                             <th class="text-center">Status Luaran</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>

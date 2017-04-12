@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DedicationPartner;
 use App\ExternalMember;
 use App\Jobs\SendNotificationEmail;
 use App\ModelSDM\Lecturer;
@@ -149,6 +150,29 @@ class ProposeController extends BlankonController {
             $proposes->period_id = $request->period_id;
         }
 
+        $dedication_partners = new Collection();
+        $i = 1;
+        foreach ($request->partner_name as $key => $value)
+        {
+            $dedication_partner = new DedicationPartner();
+            $dedication_partner->item = $i++;
+            $dedication_partner->name = $request->partner_name[$key];
+            $dedication_partner->territory = $request->partner_territory[$key];
+            $dedication_partner->city = $request->partner_city[$key];
+            $dedication_partner->province = $request->partner_province[$key];
+            $dedication_partner->distance = $request->partner_distance[$key];
+            if ($dedication_partner->distance == "")
+            {
+                $dedication_partner->distance = 0;
+            }
+            if (isset($request->file('file_partner_contract')[$key]))
+            {
+                $dedication_partner->file_partner_contract_ori = $request->file('file_partner_contract')[$key]->getClientOriginalName();
+                $dedication_partner->file_partner_contract = md5($request->file('file_partner_contract')[$key]->getClientOriginalName() . Carbon::now()->toDateTimeString()) . $dedication_partner->item . '.pdf';
+            }
+            $dedication_partners->add($dedication_partner);
+        }
+
         $members = new Collection();
         $external_members = new Collection();
         $i = 1;
@@ -238,13 +262,14 @@ class ProposeController extends BlankonController {
             $flow_statuses->created_by = $proposes->created_by;
         }
 
-        DB::transaction(function () use ($proposes, $proposes_own, $members, $external_members, $flow_statuses, $propose_output_types, $request)
+        DB::transaction(function () use ($proposes, $proposes_own, $dedication_partners, $members, $external_members, $flow_statuses, $propose_output_types, $request)
         {
             $proposes->save();
             if ($proposes->is_own === '1')
             {
                 $proposes->proposesOwn()->save($proposes_own);
             }
+            $proposes->dedicationPartner()->saveMany($dedication_partners);
             $proposes->member()->saveMany($members);
             $proposes->proposeOutputType()->saveMany($propose_output_types);
             $i = 0;
@@ -261,6 +286,15 @@ class ProposeController extends BlankonController {
 
             //Send email to member
             $this->setEmail($flow_statuses->status_code, $proposes);
+
+            $path = Storage::url('upload/' . md5(Auth::user()->nidn) . '/contract/');
+            foreach ($dedication_partners as $key => $dedication_partner)
+            {
+                if (array_key_exists($key, $request->file('file_partner_contract')))
+                {
+                    $request->file('file_partner_contract')[$key]->storeAs($path, $dedication_partner->file_partner_contract);
+                }
+            }
         });
 
         return redirect()->intended('/proposes');
@@ -410,6 +444,11 @@ class ProposeController extends BlankonController {
                 $propose_relation->propose_output_types->add(new ProposeOutputType());
                 $propose_relation->propose_output_types->add(new ProposeOutputType());
             }
+            if ($propose_relation->dedication_partners->isEmpty())
+            {
+                $propose_relation->dedication_partners = new Collection();
+                $propose_relation->dedication_parnters->add(new Dedication_partner());
+            }
             for ($i = count($propose_relation->propose_output_types); $i < 3; $i++)
             {
                 $propose_relation->propose_output_types->add(new ProposeOutputType());
@@ -458,13 +497,14 @@ class ProposeController extends BlankonController {
         }
         if ($request->submit_button === 'print')
         {
-            $propose_output_types = $propose->proposeOutputType()->get();
+            $propose_output_types = $propose->proposeOutputType()->get();;
+            $dedication_partners = $propose->dedicationPartner()->get();
             $lecturer = Lecturer::where('employee_card_serial_number', Auth::user()->nidn)->first();
-            $lppm_head = Lecturer::where('employee_card_serial_number', '0001116503')->first();
+            $lppm_head = Lecturer::where('employee_card_serial_number', '0001096202')->first();
 
             if ($request->sign_2 === 'secretary')
             {
-                $lppm_head = Lecturer::where('employee_card_serial_number', '0031086102')->first();
+                $lppm_head = Lecturer::where('employee_card_serial_number', '0009016502')->first();
             }
 
             $lppm_head->full_name = $lppm_head->front_degree . ' ' . $lppm_head->full_name . ', ' . $lppm_head->behind_degree;
@@ -644,6 +684,7 @@ class ProposeController extends BlankonController {
 
             return view('printing.print-confirmation', compact(
                 'propose',
+                'dedication_partners',
                 'lecturer',
                 'members',
                 'today_date',
@@ -690,6 +731,29 @@ class ProposeController extends BlankonController {
                 {
                     $propose->is_own = null;
                     $propose->period_id = $request->period_id;
+                }
+
+                $dedication_partners = new Collection();
+                $i = 1;
+                foreach ($request->partner_name as $key => $value)
+                {
+                    $dedication_partner = new DedicationPartner();
+                    $dedication_partner->item = $i++;
+                    $dedication_partner->name = $request->partner_name[$key];
+                    $dedication_partner->territory = $request->partner_territory[$key];
+                    $dedication_partner->city = $request->partner_city[$key];
+                    $dedication_partner->province = $request->partner_province[$key];
+                    $dedication_partner->distance = $request->partner_distance[$key];
+                    if ($dedication_partner->distance == "")
+                    {
+                        $dedication_partner->distance = 0;
+                    }
+                    if (isset($request->file('file_partner_contract')[$key]))
+                    {
+                        $dedication_partner->file_partner_contract_ori = $request->file('file_partner_contract')[$key]->getClientOriginalName();
+                        $dedication_partner->file_partner_contract = md5($request->file('file_partner_contract')[$key]->getClientOriginalName() . Carbon::now()->toDateTimeString()) . $dedication_partner->item . '.pdf';
+                    }
+                    $dedication_partners->add($dedication_partner);
                 }
 
                 $members = new Collection();
@@ -781,9 +845,17 @@ class ProposeController extends BlankonController {
                     $flow_statuses->created_by = $propose->created_by;
                 }
 
-                DB::transaction(function () use ($propose, $proposes_own, $members, $external_members, $flow_statuses, $propose_output_types, $request)
+                DB::transaction(function () use ($propose, $proposes_own, $dedication_partners, $members, $external_members, $flow_statuses, $propose_output_types, $request)
                 {
                     //Delete saved data to be overwritten with new data
+                    $path = Storage::url('upload/' . md5(Auth::user()->nidn) . '/contract/');
+                    $dedications = $propose->dedicationPartner()->get();
+                    foreach ($dedications as $dedication)
+                    {
+                        if(! is_null($dedication->file_partner_contract))
+                            Storage::delete($path . $dedication->file_partner_contract);
+                    }
+
                     DB::table('proposes_own')->where('propose_id', $propose->id)->delete();
                     $del_members = $propose->member()->get();
                     foreach ($del_members as $del_member)
@@ -793,6 +865,7 @@ class ProposeController extends BlankonController {
                         $del_member->forceDelete();
                     }
                     DB::table('propose_output_types')->where('propose_id', $propose->id)->delete();
+                    DB::table('dedication_partners')->where('propose_id', $propose->id)->delete();
 
                     //Now begin saving
                     $propose->save();
@@ -801,6 +874,7 @@ class ProposeController extends BlankonController {
                         $propose->proposesOwn()->save($proposes_own);
                     }
                     $propose->member()->saveMany($members);
+                    $propose->dedicationPartner()->saveMany($dedication_partners);
                     $propose->proposeOutputType()->saveMany($propose_output_types);
                     $i = 0;
                     foreach ($members as $key => $member)
@@ -816,6 +890,12 @@ class ProposeController extends BlankonController {
 
                     //Send email to member
                     $this->setEmail($flow_statuses->status_code, $propose);
+
+                    $path = Storage::url('upload/' . md5(Auth::user()->nidn) . '/contract/');
+                    foreach ($dedication_partners as $key => $dedication_partner)
+                    {
+                        $request->file('file_partner_contract')[$key]->storeAs($path, $dedication_partner->file_partner_contract);
+                    }
                 });
 
                 return redirect()->intended('/proposes');
@@ -927,15 +1007,33 @@ class ProposeController extends BlankonController {
 
     public function getFile($id, $type)
     {
-        $propose = Propose::find($id);
-        if(is_null($propose))
+        if ($type != '1')
         {
-            $this->setCSS404();
+            $propose = Propose::find($id);
+            if (is_null($propose))
+            {
+                $this->setCSS404();
 
-            return abort('404');
+                return abort('404');
+            }
+        } else
+        {
+            $dedication_partner = DedicationPartner::find($id);
+            $propose = $dedication_partner->propose()->first();
         }
         $this->authorize('downloadPropose', $propose);
-        if ($type == 2)
+        if ($type == 1)
+        {
+            $dedication_partner = DedicationPartner::find($id);
+            $nidn = $dedication_partner->propose()->first()->created_by;
+            $path = storage_path() . '/app' . Storage::url('upload/' . md5($nidn) . '/contract/' . $dedication_partner->file_partner_contract);
+
+            $this->storeDownloadLog($dedication_partner->propose()->first()->id, 'contract', $dedication_partner->file_partner_contract_ori, $dedication_partner->file_partner_contract, $nidn);
+
+            return response()->download($path, $dedication_partner->file_partner_contract_ori, ['Content-Type' => 'application/pdf']);
+
+
+        } elseif ($type == 2)
         {
             $nidn = $propose->created_by;
             $path = storage_path() . '/app' . Storage::url('upload/' . md5($nidn) . '/propose/' . $propose->file_propose);
@@ -1088,6 +1186,8 @@ class ProposeController extends BlankonController {
             $ret->propose_output_types = $propose->proposeOutputType()->get();
             $ret->members = $propose->member()->get();
             $ret->flow_status = $propose->flowStatus()->orderBy('id', 'desc')->first();
+            $ret->dedication_partners = $propose->dedicationPartner()->get();
+            $ret->dedication_partner = $propose->dedicationPartner()->first();
             foreach ($ret->members as $member)
             {
                 if ($member->external === '1')
@@ -1146,6 +1246,8 @@ class ProposeController extends BlankonController {
             $ret->propose_output_types->add(new ProposeOutputType());
             $ret->propose_output_types->add(new ProposeOutputType());
             $ret->propose_output_types->add(new ProposeOutputType());
+            $ret->dedication_partners = new Collection();
+            $ret->dedication_partners->add(new DedicationPartner());
 
             $ret->lecturer = $this->getEmployee(Auth::user()->nidn);
 

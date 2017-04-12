@@ -35,6 +35,8 @@
 
                 @include('form-input.propose-detail-output')
 
+                @include('form-input.propose-partner')
+
                 @include('form-input.propose-detail')
 
                 <div class="row">

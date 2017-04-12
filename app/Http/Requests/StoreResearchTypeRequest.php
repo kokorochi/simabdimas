@@ -31,7 +31,7 @@ class StoreResearchTypeRequest extends FormRequest
     public function messages()
     {
         return [
-            'research_name.required' => 'Jenis penelitian harus diisi'
+            'research_name.required' => 'Jenis pengabdian harus diisi'
         ];
     }
 }

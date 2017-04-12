@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ResearchTypeController extends BlankonController
 {
-    private $pageTitle = 'Jenis Penelitian';
-    protected $deleteQuestion = 'Apakah anda yakin untuk menghapus Jenis Penelitian ini?';
+    private $pageTitle = 'Jenis Pengabdian';
+    protected $deleteQuestion = 'Apakah anda yakin untuk menghapus Jenis Pengabdian ini?';
     protected $deleteUrl = 'research-types';
 
     public function __construct()

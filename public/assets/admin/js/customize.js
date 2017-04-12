@@ -41,7 +41,36 @@ $(document).ready(function () {
         x = countChild;
         if (x < max_fields) { //max input box allowed
             x++; //text box increment
-            $(".partner-wrapper").append('<div class="form-group"><label for="partner_name[]" class="col-sm-3 control-label">Nama Mitra</label> <div class="col-sm-7"> <input name="partner_name[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_territory[]" class="col-sm-3 control-label">Wilayah Mitra (Desa/Kecamatan)</label> <div class="col-sm-7"> <input name="partner_territory[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_city[]" class="col-sm-3 control-label">Kabupaten/Kota</label> <div class="col-sm-7"> <input name="partner_city[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_province[]" class="col-sm-3 control-label">Provinsi</label> <div class="col-sm-7"> <input name="partner_province[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_distance[]" class="col-sm-3 control-label">Jarak PT ke lokasi mitra (KM)</label> <div class="col-sm-7"> <input name="partner_distance[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <div class="clearfix"></div> <label class="control-label col-sm-4 col-md-3">Unggah Surat Kesediaan Kerjasama</label> <div class="col-sm-7"> <div class="fileinput fileinput-new input-group" data-provides="fileinput"> <div class="form-control" data-trigger="fileinput"> <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> </div> <span class="input-group-addon btn btn-success btn-file"> <span class="fileinput-new">Select file</span> <span class="fileinput-exists">Change</span> <input type="file" name="file_partner_contract[]" value=""> </span> <a href="#" class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a> </div> </div> <div class="col-sm-offset-3 col-sm-7"><a href="#" class="remove_field btn btn-sm btn-danger btn-stroke btn-slideright"> <i class="fa fa-minus"></i> </a> </div></div><!-- /.form-group -->'); //add input box
+            var partner_clone = $(".partner-wrapper").find("div.form-group:last").clone();
+            var key = partner_clone.find("input[name^=partner_name]").attr("name").substring(13,14);
+            key++;
+            partner_clone.find("input[name^=partner_name]").attr("name", "partner_name[" + key + "]");
+            partner_clone.find("input[name^=partner_name]").val("");
+            partner_clone.find("input[name^=partner_territory]").attr("name", "partner_territory[" + key + "]");
+            partner_clone.find("input[name^=partner_territory]").val("");
+            partner_clone.find("input[name^=partner_city]").attr("name", "partner_city[" + key + "]");
+            partner_clone.find("input[name^=partner_city]").val("");
+            partner_clone.find("input[name^=partner_province]").attr("name", "partner_province[" + key + "]");
+            partner_clone.find("input[name^=partner_province]").val("");
+            partner_clone.find("input[name^=partner_distance]").attr("name", "partner_distance[" + key + "]");
+            partner_clone.find("input[name^=partner_distance]").val("");
+            partner_clone.find("input[name^=file_partner_contract]").attr("name", "file_partner_contract[" + key + "]");
+            partner_clone.find("input[name^=file_partner_contract]").val("");
+            partner_clone.find("div.fileinput").attr("class", "fileinput input-group fileinput-new");
+            partner_clone.find("span.fileinput-filename").text("");
+
+            partner_clone.find("label[name^=partner_name]").attr("for", "partner_name[" + key + "]");
+            partner_clone.find("label[name^=partner_territory]").attr("for", "partner_territory[" + key + "]");
+            partner_clone.find("label[name^=partner_city]").attr("for", "partner_city[" + key + "]");
+            partner_clone.find("label[name^=partner_province]").attr("for", "partner_province[" + key + "]");
+            partner_clone.find("label[name^=partner_distance]").attr("for", "partner_distance[" + key + "]");
+            partner_clone.find("label[name^=file_partner_contract]").attr("for", "file_partner_contract[" + key + "]");
+
+            $(".partner-wrapper").append(partner_clone);
+
+            //$(".partner-wrapper").append('<div class="form-group"><label for="partner_name[]" class="col-sm-3 control-label">Nama Mitra</label> <div class="col-sm-7"> <input name="partner_name[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_territory[]" class="col-sm-3 control-label">Wilayah Mitra (Desa/Kecamatan)</label> <div class="col-sm-7"> <input name="partner_territory[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_city[]" class="col-sm-3 control-label">Kabupaten/Kota</label> <div class="col-sm-7"> <input name="partner_city[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_province[]" class="col-sm-3 control-label">Provinsi</label> <div class="col-sm-7"> <input name="partner_province[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <label for="partner_distance[]" class="col-sm-3 control-label">Jarak PT ke lokasi mitra (KM)</label> <div class="col-sm-7"> <input name="partner_distance[]" class="form-control input-sm mb-10" type="text"> </div><!-- /.col-sm-7 --> <div class="clearfix"></div> <label class="control-label col-sm-4 col-md-3">Unggah Surat Kesediaan Kerjasama</label> <div class="col-sm-7"> <div class="fileinput fileinput-new input-group" data-provides="fileinput"> <div class="form-control" data-trigger="fileinput"> <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> </div> <span class="input-group-addon btn btn-success btn-file"> <span class="fileinput-new">Pilih file</span> <span class="fileinput-exists">Ubah</span> <input type="file" name="file_partner_contract[]" value=""> </span> <a href="#" class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput">Hapus</a> </div> </div> <div class="col-sm-offset-3 col-sm-7"><a href="#" class="remove_field btn btn-sm btn-danger btn-stroke btn-slideright"> <i class="fa fa-minus"></i> </a> </div></div><!-- /.form-group -->'); //add input box
+            BlankonFormAdvanced.inputMask();
+            BlankonApp.handleSound();
         }
     });
 

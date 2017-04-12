@@ -38,6 +38,8 @@
 
             @include('form-input.propose-detail-output')
 
+            @include('form-input.propose-partner')
+
             @include('form-input.propose-detail')
 
             <form class="submit-form" action="{{url('proposes', $propose_relation->propose->id) . '/edit'}}" method="POST"

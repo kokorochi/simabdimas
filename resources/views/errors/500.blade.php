@@ -8,7 +8,7 @@
         @if(isset($error))
             <h4>{{ $error }}<br/> <br/></h4>
         @else
-            <h4>Mohon hubungi LP untuk keterangan lebih lanjut<br/> <br/></h4>
+            <h4>Mohon hubungi LPM untuk keterangan lebih lanjut<br/> <br/></h4>
         @endif
     </div>
 

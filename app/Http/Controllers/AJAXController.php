@@ -699,7 +699,7 @@ class AJAXController extends BlankonController {
 
         return response($data, 200)->header('Content-Type', 'application/json');
 
-//        $res = $client->request('GET', 'http://simpel.usu.ac.id/api/outputs/count/search',[
+//        $res = $client->request('GET', 'http://simabdimas.usu.ac.id/api/outputs/count/search',[
 //          'query' => [
 //              'level' => '1',
 //              'years[]' => '2013',

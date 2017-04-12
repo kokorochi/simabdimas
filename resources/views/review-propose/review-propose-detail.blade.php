@@ -73,7 +73,7 @@
                 <div class="panel-body">
                     <div class="form-body form-horizontal form-bordered no-padding">
                         <div class="form-group">
-                            <label for="title" class="col-sm-4 col-md-3 control-label">Judul Penelitian</label>
+                            <label for="title" class="col-sm-4 col-md-3 control-label">Judul Pengabdian</label>
                             <div class="col-sm-7">
                                 <input name="title" class="form-control input-sm" type="text"
                                        value="{{ $propose->title }}" disabled>

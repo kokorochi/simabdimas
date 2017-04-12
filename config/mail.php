@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'lp@usu.ac.id',
-        'name' => 'Lembaga Penelitian',
+        'address' => 'lpm@usu.ac.id',
+        'name' => 'Lembaga Pengabdian Masyarakat',
     ],
 
     /*

@@ -9,7 +9,7 @@ START @SIDEBAR LEFT
            |=========================================================================================================================|
 
 -->
-<aside id="sidebar-left" class="{{ $sidebarClass or 'sidebar-circle' }}">
+<aside id="sidebar-left" class="{{ $sidebarClass or 'sidebar-circle' }} sidebar-light">
 
     <!-- Start left navigation - profile shortcut -->
     @if(Auth::user())
@@ -121,7 +121,7 @@ START @SIDEBAR LEFT
             <li {!! Request::is('research-types','research-types/*')? 'class="submenu active"' : 'class="submenu"' !!}>
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-file-archive-o"></i></span>
-                    <span class="text">Jenis Penelitian</span>
+                    <span class="text">Jenis Pengabdian</span>
                     <span class="arrow"></span>
                     {!! Request::is('research-types', 'research-types/*') ? '<span class="selected"></span>' : null !!}
                 </a>
@@ -216,13 +216,13 @@ START @SIDEBAR LEFT
             <li {!! Request::is('researches','researches/*')? 'class="submenu active"' : 'class="submenu"' !!}>
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-black-tie"></i></span>
-                    <span class="text">Penelitian</span>
+                    <span class="text">Pengabdian</span>
                     <span class="arrow"></span>
                     {!! Request::is('researches', 'researches/*') ? '<span class="selected"></span>' : null !!}
                 </a>
                 <ul>
                     <li {!! Request::is('researches','researches/')? 'class="active"' : null !!}>
-                        <a href="{{url('researches/approve-list')}}">Daftar Penelitian</a>
+                        <a href="{{url('researches/approve-list')}}">Daftar Pengabdian</a>
                     </li>
                 </ul>
             </li>
@@ -276,13 +276,13 @@ START @SIDEBAR LEFT
             <li {!! Request::is('researches','researches/*')? 'class="submenu active"' : 'class="submenu"' !!}>
                 <a href="javascript:void(0);">
                     <span class="icon"><i class="fa fa-black-tie"></i></span>
-                    <span class="text">Penelitian</span>
+                    <span class="text">Pengabdian</span>
                     <span class="arrow"></span>
                     {!! Request::is('researches', 'researches/*') ? '<span class="selected"></span>' : null !!}
                 </a>
                 <ul>
                     <li {!! Request::is('researches','researches/')? 'class="active"' : null !!}>
-                        <a href="{{url('researches/')}}">Daftar Penelitian</a>
+                        <a href="{{url('researches/')}}">Daftar Pengabdian</a>
                     </li>
                 </ul>
             </li>
@@ -310,7 +310,7 @@ START @SIDEBAR LEFT
                         <a href="{{url('review-proposes/')}}">Usulan</a>
                     </li>
                     <li {!! Request::is('review-proposes','review-proposes/research-list')? 'class="active"' : null !!}>
-                        <a href="{{url('review-proposes/research-list')}}">Penelitian</a>
+                        <a href="{{url('review-proposes/research-list')}}">Pengabdian</a>
                     </li>
                 </ul>
             </li>

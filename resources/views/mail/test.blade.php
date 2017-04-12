@@ -31,14 +31,14 @@
                        style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;width: 100%;">
                     <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                         <td style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
-                            <img src="https://simpel.usu.ac.id/assets/images/Logo%20LP%20USU.png"
+                            <img src="https://simabdimas.usu.ac.id/assets/images/Logo%20LP%20USU.png"
                                  style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;max-width: 100%;">
                         </td>
                         <td align="right"
                             style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                             <h6 class="collapse"
                                 style="margin: 0!important;padding: 0;font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue Light&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif;line-height: 1.1;margin-bottom: 15px;color: #444;font-weight: 900;font-size: 14px;text-transform: uppercase;">
-                                Sistem Penelitian</h6></td>
+                                Sistem Pengabdian</h6></td>
                     </tr>
                 </table>
             </div>
@@ -123,8 +123,8 @@
                                                                 {{--style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">--}}
                                                         Email: <strong
                                                                 style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;"><a
-                                                                    href="mailto:lp@usu.ac.id"
-                                                                    style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: #2BA6CB;">lp@usu.ac.id</a></strong></p>
+                                                                    href="mailto:lpm@usu.ac.id"
+                                                                    style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;color: #2BA6CB;">lpm@usu.ac.id</a></strong></p>
 
                                                 </td>
                                             </tr>

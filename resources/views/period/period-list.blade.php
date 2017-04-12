@@ -49,7 +49,7 @@
                                         <th class="text-center border-right">Id</th>
                                         <th class="text-center">Tahun</th>
                                         <th class="text-center">Kategori</th>
-                                        <th class="text-center">Jenis Penelitian</th>
+                                        <th class="text-center">Jenis Pengabdian</th>
                                         <th>Scheme</th>
                                         <th>Sumber Dana</th>
                                         <th class="text-center">Action</th>
@@ -80,7 +80,7 @@
                                         <th class="text-center border-right">Id</th>
                                         <th class="text-center">Tahun</th>
                                         <th class="text-center">Kategori</th>
-                                        <th class="text-center">Jenis Penelitian</th>
+                                        <th class="text-center">Jenis Pengabdian</th>
                                         <th>Scheme</th>
                                         <th>Sumber Dana</th>
                                         <th class="text-center">Action</th>

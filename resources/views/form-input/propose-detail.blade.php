@@ -27,7 +27,7 @@ $errors->has('bank_account_no') || old('bank_account_no')
         <div class="panel">
             <div class="panel-heading">
                 <div class="pull-left">
-                    <h3 class="panel-title">Detail Penelitian</h3>
+                    <h3 class="panel-title">Detail Pengabdian</h3>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-sm" data-action="collapse" data-container="body" data-toggle="tooltip"
@@ -50,7 +50,7 @@ $errors->has('bank_account_no') || old('bank_account_no')
                     </div><!-- /.form-group -->
 
                     <div class="form-group">
-                        <label for="title" class="col-sm-4 col-md-3 control-label">Judul Penelitian</label>
+                        <label for="title" class="col-sm-4 col-md-3 control-label">Judul Pengabdian</label>
                         <div class="col-sm-7">
                             <input name="title" class="form-control input-sm" type="text"
                                    value="{{ $propose_relation->propose->title }}" {{$disabled}}>

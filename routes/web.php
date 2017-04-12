@@ -208,13 +208,13 @@ Route::group(['middleware' => ['auth','isSuperUser']], function() {
 });
 //End Log Viewer Route
 
-$api = app('Dingo\Api\Routing\Router');
-
-$api->version('v1', function ($api)
-{
-    $api->group(['namespace' => 'App\Api\V1\Controllers'], function ($api)
-    {
-        $api->get('researches/search', 'ResearchController@getAllWithDetail');
-        $api->get('outputs/count/search', 'OutputController@getCountAcceptedOutput');
-    });
-});
+//$api = app('Dingo\Api\Routing\Router');
+//
+//$api->version('v1', function ($api)
+//{
+//    $api->group(['namespace' => 'App\Api\V1\Controllers'], function ($api)
+//    {
+//        $api->get('researches/search', 'ResearchController@getAllWithDetail');
+//        $api->get('outputs/count/search', 'OutputController@getCountAcceptedOutput');
+//    });
+//});

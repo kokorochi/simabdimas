@@ -73,4 +73,9 @@ class Propose extends Model {
     {
         return $this->hasMany(DownloadLog::class);
     }
+
+    public function dedicationPartner()
+    {
+        return $this->hasMany(DedicationPartner::class);
+    }
 }

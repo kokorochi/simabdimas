@@ -34,7 +34,7 @@
                     <div class="panel rounded shadow">
                         <div class="panel-heading">
                             <div class="pull-left">
-                                <h3 class="panel-title">{{$upd_mode === 'create' ? 'Tambah' : 'Ubah'}} Jenis Penelitian</h3>
+                                <h3 class="panel-title">{{$upd_mode === 'create' ? 'Tambah' : 'Ubah'}} Jenis Pengabdian</h3>
                             </div>
                             <div class="pull-right">
                                 <button class="btn btn-sm" data-action="collapse" data-container="body"
@@ -52,7 +52,7 @@
 
                                     <div class="form-group">
                                         <label for="research_name" class="col-sm-4 col-md-3 control-label">
-                                            Jenis Penelitian
+                                            Jenis Pengabdian
                                         </label>
                                         <div class="col-sm-7">
                                             <input name="research_name" class="form-control input-sm" type="text"

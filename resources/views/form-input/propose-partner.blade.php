@@ -15,10 +15,10 @@ $errors->has('partner_distance.' . $ctr_old) || old('partner_distance.' . $ctr_o
         $dedication_partner['city'] = old('partner_city.' . $ctr_old);
         $dedication_partner['province'] = old('partner_province.' . $ctr_old);
         $dedication_partner['distance'] = old('partner_distance.' . $ctr_old);
-        if($dedication_partners->get($ctr_old) === null){
-            $dedication_partners->add($dedication_partner);
+        if($propose_relation->dedication_partners->get($ctr_old) === null){
+            $propose_relation->dedication_partners->add($dedication_partner);
         }else{
-            $dedication_partners[$ctr_old] = $dedication_partner;
+            $propose_relation->dedication_partners[$ctr_old] = $dedication_partner;
         }
         $ctr_old++;
     @endphp
@@ -30,7 +30,7 @@ $errors->has('partner_distance.' . $ctr_old) || old('partner_distance.' . $ctr_o
         <div class="panel">
             <div class="panel-heading">
                 <div class="pull-left">
-                    <h3 class="panel-title">Mitra Penelitian</h3>
+                    <h3 class="panel-title">Mitra Pengabdian</h3>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-sm" data-action="collapse" data-container="body" data-toggle="tooltip"
@@ -41,63 +41,63 @@ $errors->has('partner_distance.' . $ctr_old) || old('partner_distance.' . $ctr_o
             <div class="panel-body no-padding">
                 <div class="form-body form-horizontal form-bordered">
                     <div class="partner-wrapper">
-                        @foreach($dedication_partners as $key => $dedication_partner)
+                        @foreach($propose_relation->dedication_partners as $key => $dedication_partner)
                             <div class="form-group">
-                                <label for="partner_name[]" class="col-sm-4 col-md-3 control-label">Nama Mitra</label>
+                                <label for="partner_name[{{$key}}]" class="col-sm-4 col-md-3 control-label">Nama Mitra</label>
                                 <div class="col-sm-7">
-                                    <input name="partner_name[]" class="form-control input-sm mb-10" type="text"
+                                    <input name="partner_name[{{$key}}]" class="form-control input-sm mb-10" type="text"
                                            value="{{ $dedication_partner->name }}" {{$disabled}}>
                                     @if($errors->has('partner_name.' . $key))
-                                        <label class="error" for="partner_name[]" style="display: inline-block;">
+                                        <label class="error" for="partner_name[{{$key}}]" style="display: inline-block;">
                                             {{ $errors->first('partner_name.' . $key) }}
                                         </label>
                                     @endif
                                 </div><!-- /.col-sm-7 -->
 
-                                <label for="partner_territory[]" class="col-sm-4 col-md-3 control-label">Wilayah Mitra
+                                <label for="partner_territory[{{$key}}]" class="col-sm-4 col-md-3 control-label">Wilayah Mitra
                                     (Desa/Kecamatan)</label>
                                 <div class="col-sm-7">
-                                    <input name="partner_territory[]" class="form-control input-sm mb-10" type="text"
+                                    <input name="partner_territory[{{$key}}]" class="form-control input-sm mb-10" type="text"
                                            value="{{ $dedication_partner->territory }}" {{$disabled}}>
                                     @if($errors->has('partner_territory.' . $key))
-                                        <label class="error" for="partner_name[]" style="display: inline-block;">
+                                        <label class="error" for="partner_name[{{$key}}]" style="display: inline-block;">
                                             {{ $errors->first('partner_territory.' . $key) }}
                                         </label>
                                     @endif
                                 </div><!-- /.col-sm-7 -->
 
                                 <div class="clearfix"></div>
-                                <label for="partner_city[]"
+                                <label for="partner_city[{{$key}}]"
                                        class="col-sm-4 col-md-3 control-label">Kabupaten/Kota</label>
                                 <div class="col-sm-7">
-                                    <input name="partner_city[]" class="form-control input-sm mb-10" type="text"
+                                    <input name="partner_city[{{$key}}]" class="form-control input-sm mb-10" type="text"
                                            value="{{ $dedication_partner->city }}" {{$disabled}}>
                                     @if($errors->has('partner_city.' . $key))
-                                        <label class="error" for="partner_name[]" style="display: inline-block;">
+                                        <label class="error" for="partner_name[{{$key}}]" style="display: inline-block;">
                                             {{ $errors->first('partner_city.' . $key) }}
                                         </label>
                                     @endif
                                 </div><!-- /.col-sm-7 -->
 
-                                <label for="partner_province[]" class="col-sm-4 col-md-3 control-label">Provinsi</label>
+                                <label for="partner_province[{{$key}}]" class="col-sm-4 col-md-3 control-label">Provinsi</label>
                                 <div class="col-sm-7">
-                                    <input name="partner_province[]" class="form-control input-sm mb-10" type="text"
+                                    <input name="partner_province[{{$key}}]" class="form-control input-sm mb-10" type="text"
                                            value="{{ $dedication_partner->province }}" {{$disabled}}>
                                     @if($errors->has('partner_province.' . $key))
-                                        <label class="error" for="partner_name[]" style="display: inline-block;">
+                                        <label class="error" for="partner_name[{{$key}}]" style="display: inline-block;">
                                             {{ $errors->first('partner_province.' . $key) }}
                                         </label>
                                     @endif
                                 </div><!-- /.col-sm-7 -->
 
-                                <label for="partner_distance[]" class="col-sm-4 col-md-3 control-label">Jarak PT ke
+                                <label for="partner_distance[{{$key}}]" class="col-sm-4 col-md-3 control-label">Jarak PT ke
                                     lokasi mitra (KM)</label>
                                 <div class="col-sm-7">
-                                    <input name="partner_distance[]" class="form-control input-sm mb-10" type="text"
+                                    <input name="partner_distance[{{$key}}]" class="form-control input-sm mb-10" type="text"
                                            maxlength="2" data-inputmask="'alias': 'numeric', 'rightAlign': false"
                                            value="{{ $dedication_partner->distance }}" {{$disabled}}>
                                     @if($errors->has('partner_distance.' . $key))
-                                        <label class="error" for="partner_name[]" style="display: inline-block;">
+                                        <label class="error" for="partner_name[{{$key}}]" style="display: inline-block;">
                                             {{ $errors->first('partner_distance.' . $key) }}
                                         </label>
                                     @endif
@@ -111,36 +111,39 @@ $errors->has('partner_distance.' . $ctr_old) || old('partner_distance.' . $ctr_o
                                         <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                             <div class="form-control" data-trigger="fileinput">
                                                 <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                <span class="fileinput-filename">{{$dedication_partner->file_partner_contract}}</span>
+                                                <span class="fileinput-filename">{{$dedication_partner->file_partner_contract_ori}}</span>
                                             </div>
                                         <span class="input-group-addon btn btn-success btn-file">
-                                            <span class="fileinput-new">Select file</span>
-                                            <span class="fileinput-exists">Change</span>
-                                            <input type="file" name="file_partner_contract[]"
+                                            <span class="fileinput-new">Pilih file</span>
+                                            <span class="fileinput-exists">Ubah</span>
+                                            <input type="file" name="file_partner_contract[{{$key}}]"
                                                    value="{{$dedication_partner->file_partner_contract}}">
                                         </span>
                                             <a href="#" class="input-group-addon btn btn-danger fileinput-exists"
-                                               data-dismiss="fileinput">Remove</a>
+                                               data-dismiss="fileinput">Hapus</a>
                                         </div>
                                         @if($errors->has('file_partner_contract.' . $key))
-                                            <label class="error" for="file_partner_contract[]"
+                                            <label class="error" for="file_partner_contract[{{$key}}]"
                                                    style="display: inline-block;">
                                                 {{ $errors->first('file_partner_contract.' . $key) }}
                                             </label>
                                         @endif
                                     </div>
                                 @else
+                                @endif
+
+                                @if($dedication_partner->file_partner_contract_ori)
                                     <div class="clearfix"></div>
                                     <label class="control-label col-sm-4 col-md-3">Unduh Surat Kesediaan
                                         Kerjasama</label>
                                     <div class="col-sm-7 mb-10">
                                         <div class="input-group">
-                                            <input name="file_partner_contract[]" class="form-control input-sm"
+                                            <input name="file_partner_contract[{{$key}}]" class="form-control input-sm"
                                                    type="text" disabled
                                                    value="{{ $dedication_partner->file_partner_contract_ori }}">
                                             <span class="input-group-btn">
                                                 <a href="{{url('proposes', $dedication_partner->id) . '/download/1' }}"
-                                                   class="btn btn-primary btn-sm">Unduh</a>
+                                                   target="_blank" class="btn btn-primary btn-sm">Unduh</a>
                                             </span>
                                         </div>
                                     </div>

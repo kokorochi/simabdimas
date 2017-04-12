@@ -46,78 +46,28 @@ class InitiateDedication1 extends Seeder {
 
 //      Output Type
         Output_type::create([
-            'output_code' => 'JI',
-            'output_name' => 'Jurnal Internasional',
+            'output_code' => 'J',
+            'output_name' => 'Jasa',
             'created_by'  => 'admin',
         ]);
         Output_type::create([
-            'output_code' => 'JNT',
-            'output_name' => 'Jurnal Nasional Terakreditasi',
+            'output_code' => 'M',
+            'output_name' => 'Metode',
             'created_by'  => 'admin',
         ]);
         Output_type::create([
-            'output_code' => 'JTT',
-            'output_name' => 'Jurnal Nasional Terakreditasi Tidak Terakreditas',
+            'output_code' => 'PB',
+            'output_name' => 'Produk / Barang',
             'created_by'  => 'admin',
         ]);
         Output_type::create([
-            'output_code' => 'AT',
-            'output_name' => 'Ajar / Teks',
+            'output_code' => 'P',
+            'output_name' => 'Paten',
             'created_by'  => 'admin',
         ]);
         Output_type::create([
-            'output_code' => 'PFI',
-            'output_name' => 'Pemakalah Forum Ilmiah (Internasional)',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'PFN',
-            'output_name' => 'Pemakalah Forum Ilmiah (Nasional)',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'PFR',
-            'output_name' => 'Pemakalah Forum Ilmiah (Regional)',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'HKI',
-            'output_name' => 'Hak Kekayaan Intelektual (HKI)',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'NPK',
-            'output_name' => 'Non Penelitian / Kontrak Kerja',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'PSN',
-            'output_name' => 'Penelitian Sumber Dana Non Ditlitabmas',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'PSD',
-            'output_name' => 'Penelitian Sumber Dana Ditlitabmas (Desentralisasi)',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'PSK',
-            'output_name' => 'Penelitian Sumber Dana Ditlitabmas (Kompetitif)',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'PA',
-            'output_name' => 'Peneliti Asing',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'PKF',
-            'output_name' => 'Penyelenggaraan Kegiatan Forum Ilmiah (Seminar / Lokakarya)',
-            'created_by'  => 'admin',
-        ]);
-        Output_type::create([
-            'output_code' => 'LL',
-            'output_name' => 'Luaran Lain',
+            'output_code' => 'BP',
+            'output_name' => 'Buku Panduan',
             'created_by'  => 'admin',
         ]);
 //      End Output Type
@@ -200,7 +150,7 @@ class InitiateDedication1 extends Seeder {
         ]);
         StatusCode::create([
             'code'        => 'PS',
-            'description' => 'Penelitian Selesai',
+            'description' => 'Pengabdian Selesai',
             'created_by'  => 'admin',
         ]);
         StatusCode::create([

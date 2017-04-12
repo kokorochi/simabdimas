@@ -85,7 +85,7 @@
 
                                     <div class="form-group">
                                         <label for="research_type" class="col-sm-3 control-label">Jenis
-                                            Penelitian</label>
+                                            Pengabdian</label>
                                         <div class="col-sm-7">
                                             <select name="research_type" class="form-control input-sm">
                                                 @foreach($research_types as $research_type)

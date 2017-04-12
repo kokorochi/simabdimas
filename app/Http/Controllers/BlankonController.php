@@ -32,12 +32,12 @@ class BlankonController extends Controller {
     // sidebar left class	
     public $sidebarClass = "sidebar-circle";
 
-    public $mainTitle = 'LP USU - Lembaga Penelitian';
+    public $mainTitle = 'LPM USU - Lembaga Pengabdian Masyarakat';
 
     public $v_auths = [];
 
     private $operator_email = [
-        '0' => 'lp@usu.ac.id'
+        '0' => 'lpm@usu.ac.id'
     ];
 
     /**
@@ -99,7 +99,7 @@ class BlankonController extends Controller {
             'admin/css/components.css',
             'admin/css/plugins.css',
             'admin/css/themes/laravel.theme.css' => ['id' => ''],
-            'admin/css/themes/red.theme.css'     => ['id' => 'theme'],
+            'admin/css/themes/blue.theme.css'     => ['id' => 'theme'],
             'admin/css/custom.css',
         ];
 
@@ -201,10 +201,10 @@ class BlankonController extends Controller {
                     }
                 }
                 $email = [];
-                $email['subject'] = '[SIMPEL] Verifikasi Anggota';
+                $email['subject'] = '[SIMABDIMAS] Verifikasi Anggota';
                 $email['recipient_name'] = 'Bapak/Ibu';
-                $email['body_content'] = 'Kami informasikan bahwa anda telah didaftarkan pada usulan penelitian Universitas Sumatera Utara. Untuk itu, kami meminta Bapak/Ibu untuk melakukan verifikasi atas usulan tersebut. Untuk melakukan verifikasi, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/proposes/' . $propose->id . '/verification">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa anda telah didaftarkan pada usulan pengabdian masyarakat Universitas Sumatera Utara. Untuk itu, kami meminta Bapak/Ibu untuk melakukan verifikasi atas usulan tersebut. Untuk melakukan verifikasi, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/proposes/' . $propose->id . '/verification">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -212,10 +212,10 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Ubah Anggota';
+                $email['subject'] = '[SIMABDIMAS] Ubah Anggota';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa anggota tidak menyetujui usulan anda. Untuk itu, kami meminta Bapak/Ibu untuk mengubah anggota atas usulan tersebut. Untuk melakukan perubahan anggota, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa anggota tidak menyetujui usulan anda. Untuk itu, kami meminta Bapak/Ibu untuk mengubah anggota atas usulan tersebut. Untuk melakukan perubahan anggota, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -227,10 +227,10 @@ class BlankonController extends Controller {
 
                 $recipients = $lecturer->email;
                 $email = [];
-                $email['subject'] = '[SIMPEL] Verifikasi Anggota';
+                $email['subject'] = '[SIMABDIMAS] Verifikasi Anggota';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa anggota anda yakni : "' . $member->full_name . '" telah ' . $status_translate . ' permohonan verifikasi anggota untuk penelitian anda. Untuk informasi lebih lanjut, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa anggota anda yakni : "' . $member->full_name . '" telah ' . $status_translate . ' permohonan verifikasi anggota untuk pengabdian anda. Untuk informasi lebih lanjut, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -242,10 +242,10 @@ class BlankonController extends Controller {
 
                 $recipients = $lecturer->email;
                 $email = [];
-                $email['subject'] = '[SIMPEL] Verifikasi Anggota';
+                $email['subject'] = '[SIMABDIMAS] Verifikasi Anggota';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa anggota anda yakni : "' . $member->full_name . '" telah ' . $status_translate . ' permohonan verifikasi anggota untuk penelitian anda. Untuk informasi lebih lanjut, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa anggota anda yakni : "' . $member->full_name . '" telah ' . $status_translate . ' permohonan verifikasi anggota untuk pengabdian anda. Untuk informasi lebih lanjut, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -253,37 +253,37 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Unggah Usulan';
+                $email['subject'] = '[SIMABDIMAS] Unggah Usulan';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa usulan penelitian anda sudah selesai verifikasi anggota. Untuk itu, kami meminta Bapak/Ibu untuk melakukan unggah usulan atas usulan tersebut. Untuk melakukan unggah usulan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa usulan pengabdian anda sudah selesai verifikasi anggota. Untuk itu, kami meminta Bapak/Ibu untuk melakukan unggah usulan atas usulan tersebut. Untuk melakukan unggah usulan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/proposes/' . $propose->id . '/edit">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
             case 'PR':
                 $recipients = $this->operator_email;
 
-                $email['subject'] = '[SIMPEL] Penentuan Reviewer';
-                $email['recipient_name'] = 'Operator Sistem Penelitian';
-                $email['body_content'] = 'Diinformasikan bahwa terdapat usulan untuk dilakukan penentuan reviewer. Untuk itu, kami meminta Bapak/Ibu untuk melakukan penentuan reviewer atas usulan tersebut. Untuk melakukan penentuan reviewer, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/reviewers/assign/' . $propose->id . '">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['subject'] = '[SIMABDIMAS] Penentuan Reviewer';
+                $email['recipient_name'] = 'Operator Sistem Pengabdian Masyarakat';
+                $email['body_content'] = 'Diinformasikan bahwa terdapat usulan untuk dilakukan penentuan reviewer. Untuk itu, kami meminta Bapak/Ibu untuk melakukan penentuan reviewer atas usulan tersebut. Untuk melakukan penentuan reviewer, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/reviewers/assign/' . $propose->id . '">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
             case 'reviewer new':
                 $reviewer = $this->getEmployee($nidn);
                 $recipients = $reviewer->email;
-                $email['subject'] = '[SIMPEL] Penentuan Reviewer';
+                $email['subject'] = '[SIMABDIMAS] Penentuan Reviewer';
                 $email['recipient_name'] = $reviewer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa terdapat usulan yang telah di-assign kepada Bapak/Ibu sebagai reviewer. Untuk itu, kami meminta Bapak/Ibu untuk melakukan review atas usulan tersebut. Untuk melakukan review, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/review-proposes/' . $propose->id . '/review">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa terdapat usulan yang telah di-assign kepada Bapak/Ibu sebagai reviewer. Untuk itu, kami meminta Bapak/Ibu untuk melakukan review atas usulan tersebut. Untuk melakukan review, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/review-proposes/' . $propose->id . '/review">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
             case 'reviewer delete':
                 $reviewer = $this->getEmployee($nidn);
                 $recipients = $reviewer->email;
-                $email['subject'] = '[SIMPEL] Penentuan Reviewer';
+                $email['subject'] = '[SIMABDIMAS] Penentuan Reviewer';
                 $email['recipient_name'] = $reviewer->full_name;
                 $email['body_content'] = 'Kami informasikan bahwa terdapat usulan yang telah di-unassign dari Bapak/Ibu sebagai reviewer.';
                 $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
@@ -293,10 +293,10 @@ class BlankonController extends Controller {
             case 'RS':
                 $recipients = $this->operator_email;
 
-                $email['subject'] = '[SIMPEL] Menunggu Persetujuan Usulan';
-                $email['recipient_name'] = 'Operator Sistem Penelitian';
-                $email['body_content'] = 'Diinformasikan bahwa terdapat usulan yang menunggu untuk disetujui/ditolak. Untuk itu, kami meminta Bapak/Ibu untuk melakukan persetujuan atas usulan tersebut. Untuk melakukan persetujuan usulan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/approve-proposes/' . $propose->id . '/approve">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['subject'] = '[SIMABDIMAS] Menunggu Persetujuan Usulan';
+                $email['recipient_name'] = 'Operator Sistem Pengabdian Masyarakat';
+                $email['body_content'] = 'Diinformasikan bahwa terdapat usulan yang menunggu untuk disetujui/ditolak. Untuk itu, kami meminta Bapak/Ibu untuk melakukan persetujuan atas usulan tersebut. Untuk melakukan persetujuan usulan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/approve-proposes/' . $propose->id . '/approve">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -304,10 +304,10 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Perbaikan Usulan';
+                $email['subject'] = '[SIMABDIMAS] Perbaikan Usulan';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa usulan penelitian anda diterima dan memerlukan perbaikan. Untuk itu, kami meminta Bapak/Ibu untuk melakukan perbaikan usulan tersebut. Untuk melakukan perbaikan usulan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/proposes/' . $propose->id . '/revision">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa usulan pengabdian anda diterima dan memerlukan perbaikan. Untuk itu, kami meminta Bapak/Ibu untuk melakukan perbaikan usulan tersebut. Untuk melakukan perbaikan usulan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/proposes/' . $propose->id . '/revision">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -316,10 +316,10 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Usulan Diterima';
+                $email['subject'] = '[SIMABDIMAS] Usulan Diterima';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa usulan penelitian anda telah diterima. Untuk itu, kami meminta Bapak/Ibu untuk melanjutkan penelitian tersebut dan melaporkan laporan kemajuan dan laporan akhir. Untuk mengunggah laporan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/researches/' . $research->id . '/edit">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa usulan pengabdian anda telah diterima. Untuk itu, kami meminta Bapak/Ibu untuk melanjutkan pengabdian tersebut dan melaporkan laporan kemajuan dan laporan akhir. Untuk mengunggah laporan, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/researches/' . $research->id . '/edit">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -327,9 +327,9 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Usulan Ditolak';
+                $email['subject'] = '[SIMABDIMAS] Usulan Ditolak';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa usulan penelitian anda telah ditolak.';
+                $email['body_content'] = 'Kami informasikan bahwa usulan pengabdian anda telah ditolak.';
                 $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
@@ -339,10 +339,10 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Unggah Luaran';
+                $email['subject'] = '[SIMABDIMAS] Unggah Luaran';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa status penelitian anda saat ini adalah menunggu unggah luaran. Untuk itu, kami meminta Bapak/Ibu untuk melakukan unggah luaran atas penelitian tersebut. Untuk melakukan unggah luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/researches/' . $research->id . '/output">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa status pengabdian anda saat ini adalah menunggu unggah luaran. Untuk itu, kami meminta Bapak/Ibu untuk melakukan unggah luaran atas pengabdian tersebut. Untuk melakukan unggah luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/researches/' . $research->id . '/output">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -350,10 +350,10 @@ class BlankonController extends Controller {
                 $recipients = $this->operator_email;
                 $research = $propose->research()->first();
 
-                $email['subject'] = '[SIMPEL] Validasi Luaran';
-                $email['recipient_name'] = 'Operator Sistem Penelitian';
-                $email['body_content'] = 'Diinformasikan bahwa terdapat luaran yang perlu divalidasi. Untuk itu, kami meminta Bapak/Ibu untuk melakukan validasi luaran tersebut. Untuk melakukan validasi luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/researches/' . $research->id . '/approve">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['subject'] = '[SIMABDIMAS] Validasi Luaran';
+                $email['recipient_name'] = 'Operator Sistem Pengabdian Masyarakat';
+                $email['body_content'] = 'Diinformasikan bahwa terdapat luaran yang perlu divalidasi. Untuk itu, kami meminta Bapak/Ibu untuk melakukan validasi luaran tersebut. Untuk melakukan validasi luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/researches/' . $research->id . '/approve">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -362,10 +362,10 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Revisi Luaran';
+                $email['subject'] = '[SIMABDIMAS] Revisi Luaran';
                 $email['recipient_name'] = $lecturer->full_name;
-                $email['body_content'] = 'Kami informasikan bahwa luaran penelitian perlu direvisi. Untuk itu, kami meminta Bapak/Ibu untuk melakukan revisi luaran tersebut. Untuk revisi luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/researches/' . $research->id . '/output">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa luaran pengabdian perlu direvisi. Untuk itu, kami meminta Bapak/Ibu untuk melakukan revisi luaran tersebut. Untuk revisi luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/researches/' . $research->id . '/output">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -374,10 +374,10 @@ class BlankonController extends Controller {
                 $lecturer = $this->getEmployee($propose->created_by);
 
                 $recipients = $lecturer->email;
-                $email['subject'] = '[SIMPEL] Validasi Luaran Diterima';
+                $email['subject'] = '[SIMABDIMAS] Validasi Luaran Diterima';
                 $email['recipient_name'] = 'Bapak/Ibu';
-                $email['body_content'] = 'Kami informasikan bahwa luaran anda telah divalidasi dan diterima oleh Operator LP. Untuk melihat luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simpel.usu.ac.id/researches/' . $research->id . '/output">Sistem Penelitian USU</a>';
-                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+                $email['body_content'] = 'Kami informasikan bahwa luaran anda telah divalidasi dan diterima oleh Operator LPM. Untuk melihat luaran, Bapak/Ibu diminta untuk login pada link ini: <a href="https://simabdimas.usu.ac.id/researches/' . $research->id . '/output">Sistem Pengabdian Masyarakat USU</a>';
+                $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Pengabdian Masyarakat USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));
                 break;
@@ -393,9 +393,9 @@ class BlankonController extends Controller {
                 }
                 array_push($recipients, $lecturer->email);
 
-                $email['subject'] = '[SIMPEL] Penelitian Selesai';
+                $email['subject'] = '[SIMABDIMAS] Pengabdian Selesai';
                 $email['recipient_name'] = 'Bapak/Ibu';
-                $email['body_content'] = 'Kami informasikan bahwa penelitian anda telah selesai.';
+                $email['body_content'] = 'Kami informasikan bahwa pengabdian anda telah selesai.';
                 $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
 
                 dispatch(new SendNotificationEmail($recipients, $email, $propose));

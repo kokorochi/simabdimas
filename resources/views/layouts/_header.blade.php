@@ -14,7 +14,7 @@
 
             <!-- Start brand -->
             <a class="navbar-brand" href="{{url('/')}}">
-                <img class="logo" src="{{$assetUrl.'images/Logo LP USU.png'}}" alt="brand logo"/>
+                <img class="logo" src="{{$assetUrl.'images/Logo LPM USU.png'}}" alt="brand logo"/>
             </a><!-- /.navbar-brand -->
             <!--/ End brand -->
 
@@ -34,7 +34,7 @@
     <!-- Start header right -->
     <div class="header-right">
         <!-- Start navbar toolbar -->
-        <div class="navbar navbar-toolbar">
+        <div class="navbar navbar-toolbar navbar-primary">
 
             <!-- Start left navigation -->
             <ul class="nav navbar-nav navbar-left">

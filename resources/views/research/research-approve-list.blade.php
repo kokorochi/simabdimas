@@ -60,7 +60,7 @@
                     <div class="panel rounded shadow">
                         <div class="panel-heading">
                             <div class="pull-left">
-                                <h3 class="panel-title">Daftar Penelitian Berdasarkan Scheme</h3>
+                                <h3 class="panel-title">Daftar Pengabdian Berdasarkan Scheme</h3>
                             </div>
                             <div class="pull-right">
                                 <button class="btn btn-sm" data-action="collapse" data-container="body"

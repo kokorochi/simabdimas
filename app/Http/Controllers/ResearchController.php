@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\DB;
 use View;
 
 class ResearchController extends BlankonController {
-    protected $pageTitle = 'Penelitian';
+    protected $pageTitle = 'Pengabdian';
     protected $deleteQuestion = '';
     protected $deleteUrl = 'researches';
 
@@ -365,7 +365,7 @@ class ResearchController extends BlankonController {
                 {
                     $research->propose()->first()->flowStatus()->create([
                         'item'        => $flow_status->item + 1,
-                        'status_code' => 'PS', //Penelitian Selesai
+                        'status_code' => 'PS', //Pengabdian Selesai
                         'created_by'  => Auth::user()->nidn,
                     ]);
                     $this->setEmail('PS', $propose);
@@ -764,7 +764,7 @@ class ResearchController extends BlankonController {
                 {
                     $research->propose()->first()->flowStatus()->create([
                         'item'        => $flow_status->item + 1,
-                        'status_code' => 'PS', // Penelitian Selesai
+                        'status_code' => 'PS', // Pengabdian Selesai
                         'created_by'  => Auth::user()->nidn
                     ]);
                     $this->setEmail('PS', $research->propose()->first());

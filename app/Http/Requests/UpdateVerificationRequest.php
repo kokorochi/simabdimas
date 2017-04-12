@@ -125,7 +125,7 @@ class UpdateVerificationRequest extends FormRequest {
 //                                if ($i_as_member + $i_as_head >= 2)
 //                                {
 ////                                array_push($ret, '1 Dosen hanya bisa menjadi ( ketua penlitian sebanyak 1 kali dan menjadi anggota sebanyak 2 kali ) atau ( anggota sebanyak 3 kali ) dalam 1 tahun');
-//                                    $err_str = 'Batas maksimal untuk mengajukan usulan penelitian sudah mencapai batas! (' . $i_as_member . ' kali anggota';
+//                                    $err_str = 'Batas maksimal untuk mengajukan usulan pengabdian sudah mencapai batas! (' . $i_as_member . ' kali anggota';
 //                                    if ($i_as_head > 0)
 //                                    {
 //                                        $err_str = $err_str . '& ' . $i_as_head . ' kali ketua)';

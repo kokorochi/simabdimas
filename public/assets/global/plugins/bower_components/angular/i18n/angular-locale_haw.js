@@ -31,7 +31,7 @@ $provide.value("$locale", {
       "Kekemapa"
     ],
     "SHORTDAY": [
-      "LP",
+      "LPM",
       "P1",
       "P2",
       "P3",

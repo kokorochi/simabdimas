@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>LP USU - Lembaga Penelitian</title>
+    <title>LPM USU - Lembaga Pengabdian Masyarakat</title>
 <!-- START @META SECTION -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">

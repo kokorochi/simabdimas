@@ -33,6 +33,6 @@ class ResetPasswordEmail extends Mailable
     {
         View::share('email', $this->email);
         return $this->view('mail.reset-password')
-            ->subject('[SIMPEL] Permintaan Reset Password');
+            ->subject('[SIMABDIMAS] Permintaan Reset Password');
     }
 }

@@ -33,7 +33,7 @@
         <!-- Dedication Title -->
         <tr>
             <td class="print-col-1">1.</td>
-            <td class="print-col-2">Judul Penelitian</td>
+            <td class="print-col-2">Judul Pengabdian</td>
             <td class="print-col-3">:</td>
             <td class="print-col-4">{{ $propose->title }}</td>
         </tr>
@@ -268,7 +268,7 @@
             <td class="print-col-1 text-center">Mengetahui</td>
         </tr>
         <tr>
-            <td class="print-col-1 text-center">Lembaga Penelitian</td>
+            <td class="print-col-1 text-center">Lembaga Pengabdian</td>
         </tr>
         <tr>
             <td class="print-col-1 text-center">

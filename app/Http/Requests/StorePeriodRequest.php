@@ -57,7 +57,7 @@ class StorePeriodRequest extends FormRequest {
             'years.required'          => 'Tahun harus diisi',
             'years.date_format'       => 'Tahun harus sesuai dengan format tahun',
             'category_type.required'  => 'Jenis Sumber Dana harus diisi',
-            'research_type.required'  => 'Jenis Penelitian harus diisi',
+            'research_type.required'  => 'Jenis Pengabdian harus diisi',
             'appraisal_type.required' => 'Jenis Penilaian harus diisi',
             'scheme.required'         => 'Scheme harus diisi',
             'scheme.max'              => 'Maksimal 255 karakter untuk Scheme',
@@ -118,7 +118,7 @@ class StorePeriodRequest extends FormRequest {
         }
         if (! $this->checkResearchType())
         {
-            return 'Pilihan jenis penelitian tidak ditemukan';
+            return 'Pilihan jenis pengabdian tidak ditemukan';
         }
         if (! $this->checkAppraisalType())
         {
