@@ -222,14 +222,14 @@ class StoreProposeRequest extends FormRequest {
         }
 
         //Check file partner contract
-//        foreach ($this->input('partner_name') as $key => $item)
-//        {
-//            if ($this->file('file_partner_contract.' . $key) === null)
-//            {
-//                array_push($ret, 'Surat Kesediaan Kerjasama harus diunggah');
-//                break 1;
-//            }
-//        }
+        foreach ($this->input('partner_name') as $key => $item)
+        {
+            if ($this->file('file_partner_contract.' . $key) === null)
+            {
+                array_push($ret, 'Surat Kesediaan Kerjasama harus diunggah');
+                break 1;
+            }
+        }
 
         //Check head email
         $lecturer = Lecturer::where('employee_card_serial_number', Auth::user()->nidn)->first();

@@ -290,9 +290,12 @@ class ProposeController extends BlankonController {
             $path = Storage::url('upload/' . md5(Auth::user()->nidn) . '/contract/');
             foreach ($dedication_partners as $key => $dedication_partner)
             {
-                if (array_key_exists($key, $request->file('file_partner_contract')))
+                if (!is_null($request->file('file_partner_contract')))
                 {
-                    $request->file('file_partner_contract')[$key]->storeAs($path, $dedication_partner->file_partner_contract);
+                    if (array_key_exists($key, $request->file('file_partner_contract')))
+                    {
+                        $request->file('file_partner_contract')[$key]->storeAs($path, $dedication_partner->file_partner_contract);
+                    }
                 }
             }
         });
@@ -852,7 +855,7 @@ class ProposeController extends BlankonController {
                     $dedications = $propose->dedicationPartner()->get();
                     foreach ($dedications as $dedication)
                     {
-                        if(! is_null($dedication->file_partner_contract))
+                        if (! is_null($dedication->file_partner_contract))
                             Storage::delete($path . $dedication->file_partner_contract);
                     }
 
