@@ -9,7 +9,7 @@ $errors->has('partner_province.' . $ctr_old) || old('partner_province.' . $ctr_o
 $errors->has('partner_distance.' . $ctr_old) || old('partner_distance.' . $ctr_old)
 )
     @php
-        $dedication_partner = new \App\Dedication_partner();
+        $dedication_partner = new \App\DedicationPartner();
         $dedication_partner['name'] = old('partner_name.' . $ctr_old);
         $dedication_partner['territory'] = old('partner_territory.' . $ctr_old);
         $dedication_partner['city'] = old('partner_city.' . $ctr_old);
