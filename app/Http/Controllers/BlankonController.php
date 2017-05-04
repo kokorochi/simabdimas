@@ -132,7 +132,7 @@ class BlankonController extends Controller {
 
     public function getEmployee($nidn)
     {
-        $ret = Employee::where('number_of_employee_holding', $nidn)->first();
+        $ret = Lecturer::where('number_of_employee_holding', $nidn)->first();
         if ($ret === null)
         {
             $ret = Lecturer::where('employee_card_serial_number', $nidn)->first();
