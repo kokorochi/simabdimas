@@ -39,9 +39,24 @@
         </tr>
         <!-- End Dedication Title -->
 
+        <!-- Dedication Partner -->
+        @foreach($dedication_partners as $dedication_partner)
+            <tr>
+                <td class="print-col-1">
+                    @if($dedication_partner->item === 1)
+                        2.
+                    @endif
+                </td>
+                <td class="print-col-2">Nama Mitra ({{$dedication_partner->item}})</td>
+                <td class="print-col-3">:</td>
+                <td class="print-col-4">{{$dedication_partner->name}}</td>
+            </tr>
+        @endforeach
+        <!-- End Dedication Partner -->
+
         <!-- Head Detail -->
         <tr>
-            <td class="print-col-1">2.</td>
+            <td class="print-col-1">3.</td>
             <td class="print-col-2">Ketua Tim Pengusul</td>
             <td class="print-col-3"></td>
             <td class="print-col-4"></td>
@@ -104,7 +119,7 @@
 
         <!-- Member Detail -->
         <tr>
-            <td class="print-col-1">3.</td>
+            <td class="print-col-1">4.</td>
             <td class="print-col-2">Anggota Tim Pengusul</td>
             <td class="print-col-3"></td>
             <td class="print-col-4"></td>
@@ -185,26 +200,62 @@
         </tr>
         <!-- End Member Detail -->
 
+        <!-- Dedication Partner Detail -->
+        @php($ctr_i = 5)
+        @foreach($dedication_partners as $dedication_partner)
+            <tr>
+                <td class="print-col-1">{{$ctr_i++ . '.'}}</td>
+                <td class="print-col-2">{{'Lokasi Kegiatan/Mitra (' . $dedication_partner->item . ')'}}</td>
+                <td class="print-col-3"></td>
+                <td class="print-col-4"></td>
+            </tr>
+            <tr>
+                <td class="print-col-1"></td>
+                <td class="print-col-2">a. Wilayah Mitra (Desa/Kecamatan)</td>
+                <td class="print-col-3">:</td>
+                <td class="print-col-4">{{$dedication_partner->territory}}</td>
+            </tr>
+            <tr>
+                <td class="print-col-1"></td>
+                <td class="print-col-2">b. Kabupaten/Kota</td>
+                <td class="print-col-3">:</td>
+                <td class="print-col-4">{{$dedication_partner->city}}</td>
+            </tr>
+            <tr>
+                <td class="print-col-1"></td>
+                <td class="print-col-2">c. Provinsi</td>
+                <td class="print-col-3">:</td>
+                <td class="print-col-4">{{$dedication_partner->province}}</td>
+            </tr>
+            <tr>
+                <td class="print-col-1"></td>
+                <td class="print-col-2">d. Jarak PT ke lokasi mitra (km)</td>
+                <td class="print-col-3">:</td>
+                <td class="print-col-4">{{$dedication_partner->distance}}</td>
+            </tr>
+        @endforeach
+        <!-- End Dedication Partner Detail -->
+
         <!-- Output Type -->
-        {{--@foreach($propose_output_types as $key => $propose_output_type)--}}
-        {{--<tr>--}}
-        {{--<td class="print-col-1">{{$key === 0 ? "5." : ""}}</td>--}}
-        {{--<td class="print-col-2">{{$key === 0 ? "Luaran yang dihasilkan" : ""}}</td>--}}
-        {{--<td class="print-col-3">{{$key === 0 ? ":" : ""}}</td>--}}
-        {{--<td class="print-col-4">{{"- " . $propose_output_type->outputType()->first()->output_name}}</td>--}}
-        {{--</tr>--}}
-        {{--@endforeach--}}
+        @foreach($propose_output_types as $key => $propose_output_type)
+            <tr>
+                <td class="print-col-1">{{$key === 0 ? $ctr_i++ . "." : ""}}</td>
+                <td class="print-col-2">{{$key === 0 ? "Luaran yang dihasilkan" : ""}}</td>
+                <td class="print-col-3">{{$key === 0 ? ":" : ""}}</td>
+                <td class="print-col-4">{{"- " . $propose_output_type->outputType()->first()->output_name}}</td>
+            </tr>
+        @endforeach
         <!-- End Output Type -->
 
         <tr>
-            <td class="print-col-1">4.</td>
+            <td class="print-col-1">{{$ctr_i++}}.</td>
             <td class="print-col-2">Jangka waktu Pelaksanaan</td>
             <td class="print-col-3">:</td>
             <td class="print-col-4">{{$propose->time_period . ' bulan'}}</td>
         </tr>
 
         <tr>
-            <td class="print-col-1">5.</td>
+            <td class="print-col-1">{{$ctr_i++}}.</td>
             <td class="print-col-2">Biaya yang diperlukan</td>
             <td class="print-col-3">:</td>
             @if($propose->final_amount !== null)
@@ -214,7 +265,7 @@
         </tr>
 
         <tr>
-            <td class="print-col-1">6.</td>
+            <td class="print-col-1">{{$ctr_i++}}.</td>
             <td class="print-col-2">Sumber Dana</td>
             <td class="print-col-3">:</td>
             <td class="print-col-4">
