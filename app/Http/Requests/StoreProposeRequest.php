@@ -39,7 +39,7 @@ class StoreProposeRequest extends FormRequest {
                     'partner_territory.*'     => 'required',
                     'partner_city.*'          => 'required',
                     'partner_province.*'      => 'required',
-                    'partner_distance.*'      => 'required|digits_between:1,2',
+                    'partner_distance.*'      => 'required|digits_between:1,3',
 
                     //Check Detail
                     'faculty_code'            => 'required',
@@ -81,7 +81,7 @@ class StoreProposeRequest extends FormRequest {
         {
             $rules = [
                 'student_involved'   => 'digits_between:1,2',
-                'partner_distance.*' => 'digits_between:1,2',
+                'partner_distance.*' => 'digits_between:1,3',
             ];
         }
 
