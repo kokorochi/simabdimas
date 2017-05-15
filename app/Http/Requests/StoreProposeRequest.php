@@ -229,6 +229,11 @@ class StoreProposeRequest extends FormRequest {
                 array_push($ret, 'Surat Kesediaan Kerjasama harus diunggah');
                 break 1;
             }
+            if ($this->file('file_partner_contract.' . $key)->getMimeType() !== 'application/pdf')
+            {
+                array_push($ret, 'Surat Kesediaan Kerjasama harus dalam bentuk PDF');
+                break 1;
+            }
         }
 
         //Check head email

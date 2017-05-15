@@ -159,7 +159,7 @@
             @endif
             <tr>
                 <td class="print-col-1"></td>
-                <td class="print-col-2"><u>{{$ctr_alpha++ . '. Anggota Peneliti (' . $member->item . ')'}}</u></td>
+                <td class="print-col-2"><u>{{$ctr_alpha++ . '. Anggota (' . $member->item . ')'}}</u></td>
                 {{--<td class="print-col-2">{{$ctr_alpha++ . '. Nama Anggota ' . $member->item . ' / bidang keahlian'}}</td>--}}
                 <td class="print-col-3"></td>
                 {{--<td class="print-col-4">{{$full_name . ' / ' . $member->areas_of_expertise}}</td>--}}
