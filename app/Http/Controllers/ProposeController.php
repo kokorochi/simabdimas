@@ -897,7 +897,10 @@ class ProposeController extends BlankonController {
                     $path = Storage::url('upload/' . md5(Auth::user()->nidn) . '/contract/');
                     foreach ($dedication_partners as $key => $dedication_partner)
                     {
-                        $request->file('file_partner_contract')[$key]->storeAs($path, $dedication_partner->file_partner_contract);
+                        if(isset($request->file('file_partner_contract')[$key]))
+                        {
+                            $request->file('file_partner_contract')[$key]->storeAs($path, $dedication_partner->file_partner_contract);
+                        }
                     }
                 });
 
