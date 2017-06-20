@@ -322,8 +322,16 @@ class ApproveProposeController extends BlankonController {
             $head_info = Lecturer::where('employee_card_serial_number', $propose->created_by)->first();
             $faculty = Faculty::where('faculty_code', $propose->faculty_code)->first();
             $research_reviewers = $propose->researchReviewer()->get();
+
+            $period = $propose->period()->first();
+            $appraisal = $period->appraisal()->first();
+            $appraisal_is = $appraisal->appraisal_i()->get();
+
             $data[$i]['No'] = $i;
-            $data[$i]['Ketua'] = $head_info->full_name;
+            if(is_null($head_info))
+                $data[$i]['Ketua'] = $propose->created_by . ": NIDN NOT FOUND";
+            else
+                $data[$i]['Ketua'] = $head_info->full_name;
 //            $data[$i]['NIDN Ketua'] = $propose->created_by;
             $data[$i]['Fakultas'] = $faculty->faculty_name;
             $data[$i]['Judul'] = $propose->title;
@@ -331,16 +339,25 @@ class ApproveProposeController extends BlankonController {
             foreach ($propose_members as $propose_member)
             {
                 $member_info = $propose_member->lecturer()->first();
-                $data[$i]['Anggota ' . $j++] = $member_info->full_name;
+                if(is_null($member_info))
+                    $data[$i]['Anggota ' . $j++] = $propose_member->nidn + ": NIDN NOT FOUND";
+                else
+                    $data[$i]['Anggota ' . $j++] = $member_info->full_name;
             }
             while ($j <= 4)
             {
                 $data[$i]['Anggota ' . $j++] = "";
             }
             $j = 1;
+            $avg_score = 0;
+            $avg_amount = 0;
             foreach ($research_reviewers as $research_reviewer)
             {
                 $member_info = Lecturer::where('employee_card_serial_number', $research_reviewer->nidn)->first();
+                if(is_null($member_info))
+                    $data[$i]['Reviewer ' . $j . ' Nama'] = $research_reviewer->nidn . ": NIDN NOT FOUND";
+                else
+                    $data[$i]['Reviewer ' . $j . ' Nama'] = $member_info->full_name;
                 $review_propose = $propose->reviewPropose()->where('nidn', $research_reviewer->nidn)->first();
                 if (! is_null($review_propose))
                 {
@@ -348,20 +365,44 @@ class ApproveProposeController extends BlankonController {
                     $total_score = 0;
                     foreach ($review_proposes_i as $review_propose_i)
                     {
+                        $data[$i]['Reviewer ' . $j . ' Komentar aspek ' . $review_propose_i->item] = $review_propose_i->comment;
                         $total_score = $total_score + ($review_propose_i->quality * $review_propose_i->score);
                     }
-                    $member_info->full_name = $member_info->full_name . ', status = ' . $review_propose->status . ', total score = ' . $total_score;
+                    $data[$i]['Reviewer ' . $j . ' Status'] = $review_propose->status;
+                    $data[$i]['Reviewer ' . $j . ' Rekomendasi Dana'] = $review_propose->recommended_amount;
+                    $data[$i]['Reviewer ' . $j . ' Nilai'] = $total_score;
+
+                    $avg_score = $avg_score + $total_score;
+                    $avg_amount = $avg_amount + $review_propose->recommended_amount;
                 } else
                 {
-                    $member_info->full_name = $member_info->full_name . ', status = belum review';
+                    $data[$i]['Reviewer ' . $j . ' Status'] = 'Belum Review';
+                    $data[$i]['Reviewer ' . $j . ' Rekomendasi Dana'] = '0';
+                    $data[$i]['Reviewer ' . $j . ' Nilai'] = '0';
                 }
-                $data[$i]['Reviewer ' . $j++] = $member_info->full_name;
+                $j++;
             }
             while ($j <= 4)
             {
-                $data[$i]['Reviewer ' . $j++] = "";
+                $data[$i]['Reviewer ' . $j . ' Nama'] = '';
+                foreach ($appraisal_is as $appraisal_i)
+                {
+                    $data[$i]['Reviewer ' . $j . ' Komentar aspek ' . $appraisal_i->item] = '';
+                }
+                $data[$i]['Reviewer ' . $j . ' Status'] = '';
+                $data[$i]['Reviewer ' . $j . ' Rekomendasi Dana'] = '';
+                $data[$i]['Reviewer ' . $j . ' Nilai'] = '';
+                $j++;
+            }
+            $count_reviewer = count($research_reviewers);
+            if ($count_reviewer > 0)
+            {
+                $avg_score = $avg_score / $count_reviewer;
+                $avg_amount = $avg_amount / $count_reviewer;
             }
             $data[$i]['Biaya Diusulkan'] = $propose->total_amount;
+            $data[$i]['Rata-rata Nilai'] = $avg_score;
+            $data[$i]['Rata-rata Rekomendasi Dana'] = $avg_amount;
 
             $i++;
         }
