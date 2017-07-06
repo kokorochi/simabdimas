@@ -205,6 +205,7 @@ Route::get('ajax/outputs/get-count', 'AJAXController@getCountOutput');
 //Log Viewer Route
 Route::group(['middleware' => ['auth','isSuperUser']], function() {
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    Route::get('generate-lecturer', 'SuperUserController@generateLecturer');
 });
 //End Log Viewer Route
 
