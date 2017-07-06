@@ -598,6 +598,12 @@ class ProposeController extends BlankonController {
                     $vice_dean_2 = Lecturer::where('employee_card_serial_number', '0029018304')->first();
                     $vice_dean_3 = Lecturer::where('employee_card_serial_number', '0027017403')->first();
                     break;
+                case 'FASILKOMTI':
+                    $dean = Lecturer::where('employee_card_serial_number', '0017086108')->first();
+                    $vice_dean_1 = Lecturer::where('employee_card_serial_number', '0016077001')->first();
+                    $vice_dean_2 = Lecturer::where('employee_card_serial_number', '0029018304')->first();
+                    $vice_dean_3 = Lecturer::where('employee_card_serial_number', '0027017403')->first();
+                    break;
                 case 'FAHUTA':
                     $dean = Lecturer::where('employee_card_serial_number', '0016047101')->first();
                     $vice_dean_1 = Lecturer::where('employee_card_serial_number', '0009047002')->first();
