@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Input;
 
 class SuperUserController extends Controller {
     public function generateLecturer()
     {
-        \Artisan::call('db:seed', ['--class' => 'InitiateLecturer']);
+//        \Artisan::call('db:seed', ['--class' => 'InitiateLecturer']);
+        Artisan::call('db:seed', ['--class' => 'InitiateLecturer']);
 
-        return "success";
+        $a = Artisan::output();
+
+        return $a == "" ? "Success" : "Failed";
     }
 
     public function showResetPassword()
