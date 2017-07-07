@@ -16,7 +16,7 @@ class SuperUserController extends Controller {
 
         $a = Artisan::output();
 
-        return $a == "" ? "Success" : "Failed";
+        return $a == "" ? "Success" : $a;
     }
 
     public function showResetPassword()
