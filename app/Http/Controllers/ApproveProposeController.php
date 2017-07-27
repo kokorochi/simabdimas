@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Auths;
+use App\FlowStatus;
 use App\Research;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use View;
 use App\Period;
 use App\Propose;
@@ -179,12 +181,13 @@ class ApproveProposeController extends BlankonController {
         }
 
         $status_code = '';
-        $propose->final_amount = str_replace(',', '', $request->final_amount);
+        if (! empty($request->final_amount))
+            $propose->final_amount = str_replace(',', '', $request->final_amount);
         if ($request->rejected == 1)
         {
             $status_code = 'UT'; //Usulan Ditolak
             $propose->approval_status = 'Rejected';
-        } else
+        } elseif ($request->approved == 1)
         {
             if ($propose->final_amount != $propose->total_amount)
             {
@@ -195,6 +198,25 @@ class ApproveProposeController extends BlankonController {
                 $status_code = 'UD'; //Usulan Diterima
                 $propose->approval_status = 'Accepted';
             }
+        } elseif ($request->revision == 1)
+        {
+            DB::transaction(function () use ($propose)
+            {
+                $flow_status = $propose->flowStatus()->orderBy('item', 'desc')->first();
+                $propose->flowStatus()->create([
+                    'item'        => $flow_status->item + 1,
+                    'status_code' => 'PU',
+                    'created_by'  => Auth::user()->nidn,
+                ]);
+                $path = Storage::url('upload/' . md5($propose->created_by) . '/propose/');
+                Storage::delete($path . $propose->file_propose_final);
+                $propose->file_propose_final_ori = null;
+                $propose->file_propose_final = null;
+                $propose->updated_by = Auth::user()->nidn;
+                $propose->save();
+            });
+
+            return redirect()->intended('approve-proposes');
         }
 
         DB::transaction(function () use ($propose, $status_code)
@@ -274,12 +296,15 @@ class ApproveProposeController extends BlankonController {
             $count_amount += $review_propose->recommended_amount;
         }
 
-        if ($count_reviewers === 0)
+        if ($propose_relation->flow_status->status_code == "RS")
         {
-            $propose_relation->propose->final_amount = $propose_relation->propose->total_amount;
-        } else
-        {
-            $propose_relation->propose->final_amount = $count_amount / $count_reviewers;
+            if ($count_reviewers === 0)
+            {
+                $propose_relation->propose->final_amount = $propose_relation->propose->total_amount;
+            } else
+            {
+                $propose_relation->propose->final_amount = $count_amount / $count_reviewers;
+            }
         }
 
         $disabled = 'disabled';
@@ -328,7 +353,7 @@ class ApproveProposeController extends BlankonController {
             $appraisal_is = $appraisal->appraisal_i()->get();
 
             $data[$i]['No'] = $i;
-            if(is_null($head_info))
+            if (is_null($head_info))
                 $data[$i]['Ketua'] = $propose->created_by . ": NIDN NOT FOUND";
             else
                 $data[$i]['Ketua'] = $head_info->full_name;
@@ -339,7 +364,7 @@ class ApproveProposeController extends BlankonController {
             foreach ($propose_members as $propose_member)
             {
                 $member_info = $propose_member->lecturer()->first();
-                if(is_null($member_info))
+                if (is_null($member_info))
                     $data[$i]['Anggota ' . $j++] = $propose_member->nidn + ": NIDN NOT FOUND";
                 else
                     $data[$i]['Anggota ' . $j++] = $member_info->full_name;
@@ -354,7 +379,7 @@ class ApproveProposeController extends BlankonController {
             foreach ($research_reviewers as $research_reviewer)
             {
                 $member_info = Lecturer::where('employee_card_serial_number', $research_reviewer->nidn)->first();
-                if(is_null($member_info))
+                if (is_null($member_info))
                     $data[$i]['Reviewer ' . $j . ' Nama'] = $research_reviewer->nidn . ": NIDN NOT FOUND";
                 else
                     $data[$i]['Reviewer ' . $j . ' Nama'] = $member_info->full_name;

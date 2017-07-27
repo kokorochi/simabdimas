@@ -23,6 +23,8 @@ class StoreApproreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->input('revision') == 1)
+            return [];
         return [
             'final_amount' => 'required'
         ];

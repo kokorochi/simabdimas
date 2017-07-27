@@ -62,6 +62,13 @@
                                 Disetujui
                             </button>
                         @endif
+                        @if($propose_relation->flow_status->status_code == 'UD' ||
+                            $propose_relation->flow_status->status_code == 'LK')
+                            <button name="revision" value="1" type="submit"
+                                    class="btn btn-success btn-slideright submit">
+                                Perbaikan Usulan
+                            </button>
+                        @endif
                     </div><!-- /.col-sm-offset-3 -->
                 </div>
                 <!-- /.form-footer -->
