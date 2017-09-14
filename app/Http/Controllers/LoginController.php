@@ -50,7 +50,6 @@ class LoginController extends BlankonController {
 
     public function doSendPassword(Requests\ForgotPasswordRequest $request)
     {
-        dd(env('MAIL_HOST_USU2'));
         $user = User::where('nidn', $request->input['nidn'])->first();
         $lecturer = $user->lecturer()->first();
         $password_reset = PasswordReset::where('nidn', $request->input['nidn'])->first();
