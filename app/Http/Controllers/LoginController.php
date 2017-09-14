@@ -50,6 +50,7 @@ class LoginController extends BlankonController {
 
     public function doSendPassword(Requests\ForgotPasswordRequest $request)
     {
+        dd(env('MAIL_HOST_USU2'));
         $user = User::where('nidn', $request->input['nidn'])->first();
         $lecturer = $user->lecturer()->first();
         $password_reset = PasswordReset::where('nidn', $request->input['nidn'])->first();
@@ -66,7 +67,7 @@ class LoginController extends BlankonController {
         $recipient = $lecturer->email;
         $email['recipient_name'] = $lecturer->full_name;
         $email['body_content'] = 'Kami informasikan permintaan reset password anda, dapat dilakukan melalui link berikut : <a href="' . $url . '">Reset Password</a>';
-        $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penlitian USU';
+        $email['body_detail_content'] = 'Demikian informasi ini kami sampaikan.<br/>Dikirim otomatis oleh Sistem Penelitian USU';
         dispatch(new SendResetPassword($recipient, $email));
 
         $mask_email = $this->obfuscate_email($lecturer->email);
