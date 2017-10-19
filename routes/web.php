@@ -200,6 +200,7 @@ Route::get('ajax/study-programs/get', 'AJAXController@getStudyProgram');
 Route::get('ajax/lecturers/get', 'AJAXController@getLecturer');
 Route::get('ajax/outputs/get', 'AJAXController@getOutput');
 Route::get('ajax/outputs/get-count', 'AJAXController@getCountOutput');
+Route::get('researches/search', 'AJAXController@getResearchByNidn');
 // End AJAX Route
 
 //Log Viewer Route

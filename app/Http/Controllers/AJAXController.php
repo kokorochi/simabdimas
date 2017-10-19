@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Member;
+use App\Research;
 use GuzzleHttp\Client;
 
 use App\Auths;
@@ -711,5 +712,66 @@ class AJAXController extends BlankonController {
 //          ]
 //        ]);
 //        echo $res->getStatusCode();
+    }
+
+    public function getResearchByNidn()
+    {
+        $input = Input::get();
+
+        if(empty($input)){
+            return abort('404');
+        }
+        if (isset($input['id']))
+        {
+            $researches = Research::where('id', $input['id'])->get();
+        }else{
+            if(isset($input['nidn'])){
+                $chief = DB::table('proposes')
+                    ->join('researches', 'researches.propose_id', '=', 'proposes.id')
+                    ->orWhere('proposes.created_by', $input['nidn']);
+                $chief_result = $chief->limit(5)->get();
+
+                $member = DB::table('proposes')
+                    ->join('researches', 'researches.propose_id', '=', 'proposes.id')
+                    ->join('members','members.propose_id','=','proposes.id')
+                    ->where('members.nidn',$input['nidn']);
+
+                if(!$chief_result->isEmpty()){
+                    $researches = $chief_result;
+                }else{
+                    $researches = $member->limit(5)->get();
+                }
+            }
+        }
+
+        $i = 0;
+        $data = [];
+        foreach ($researches as $research)
+        {
+            $propose = Propose::find($research->propose_id);
+            $data['data'][$i]['id'] = $research->id;
+            $data['data'][$i]['title'] = $propose->title;
+            $data['data'][$i]['author'] = $propose->created_by;
+            if ($propose->is_own === '1')
+            {
+                $data['data'][$i]['scheme'] = $propose->proposesOwn()->first()->scheme;
+            } else
+            {
+                $period = $propose->period()->first();
+                $data['data'][$i]['scheme'] = $period->scheme;
+            }
+            $data['data'][$i]['last_status'] = $propose->flowStatus()->orderBy('item', 'desc')->first()->statusCode()->first()->description;
+            $i++;
+        }
+
+        $count_data = count($data);
+        if ($count_data == 0)
+        {
+            $data['data'] = [];
+        }
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $count_data;
+        $data = json_encode($data, JSON_PRETTY_PRINT);
+
+        return response($data, 200)->header('Content-Type', 'application/json');
     }
 }
