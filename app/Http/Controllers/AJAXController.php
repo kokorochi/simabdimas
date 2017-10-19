@@ -716,60 +716,74 @@ class AJAXController extends BlankonController {
 
     public function getResearchByNidn()
     {
+        $data = [];
         $input = Input::get();
 
-        if(empty($input)){
-            return abort('404');
-        }
-        if (isset($input['id']))
+        if (! isset($input['nidn']) || ! isset($input['apps']))
+            $data['messages'] = 'Input not found!';
+        else
         {
-            $researches = Research::where('id', $input['id'])->get();
-        }else{
-            if(isset($input['nidn'])){
-                $chief = DB::table('proposes')
-                    ->join('researches', 'researches.propose_id', '=', 'proposes.id')
-                    ->orWhere('proposes.created_by', $input['nidn']);
-                $chief_result = $chief->limit(5)->get();
+            $proposes = Propose::where('created_by', $input['nidn'])->get();
+            $members = Member::where('nidn', $input['nidn'])->get();
+            $propose_as_members = new Collection();
+            foreach ($members as $member)
+            {
+                $propose = $member->propose()->first();
+                if (! is_null($propose))
+                    $propose_as_members->push($propose);
+            }
 
-                $member = DB::table('proposes')
-                    ->join('researches', 'researches.propose_id', '=', 'proposes.id')
-                    ->join('members','members.propose_id','=','proposes.id')
-                    ->where('members.nidn',$input['nidn']);
-
-                if(!$chief_result->isEmpty()){
-                    $researches = $chief_result;
-                }else{
-                    $researches = $member->limit(5)->get();
+            $researches = new Collection();
+            foreach ($proposes as $propose)
+            {
+                $research = $propose->research()->first();
+                if (! is_null($research))
+                {
+                    $research->position = 'Ketua';
+                    $researches->push($research);
                 }
             }
-        }
-
-        $i = 0;
-        $data = [];
-        foreach ($researches as $research)
-        {
-            $propose = Propose::find($research->propose_id);
-            $data['data'][$i]['id'] = $research->id;
-            $data['data'][$i]['title'] = $propose->title;
-            $data['data'][$i]['author'] = $propose->created_by;
-            if ($propose->is_own === '1')
+            foreach ($propose_as_members as $propose)
             {
-                $data['data'][$i]['scheme'] = $propose->proposesOwn()->first()->scheme;
-            } else
-            {
-                $period = $propose->period()->first();
-                $data['data'][$i]['scheme'] = $period->scheme;
+                $research = $propose->research()->first();
+                if (! is_null($research))
+                {
+                    $research->position = 'Anggota';
+                    $researches->push($research);
+                }
             }
-            $data['data'][$i]['last_status'] = $propose->flowStatus()->orderBy('item', 'desc')->first()->statusCode()->first()->description;
-            $i++;
+
+            $i = 0;
+            foreach ($researches as $research)
+            {
+                $propose = $research->propose()->first();
+                if ($propose->is_own == null)
+                    $period = $propose->period()->first();
+                else
+                    $period = $propose->proposesOwn()->first();
+
+                $flow_status = $propose->flowStatus()->orderBy('id', 'desc')->first();
+                if ($flow_status->status_code == 'PS')
+                    $status = 'Selesai';
+                else
+                    $status = 'On-Going';
+
+                $data[$i]['pengabdian'] = [
+                    'judul'           => $propose->title,
+                    'sumber_dana'     => $period->sponsor,
+                    'skema'           => $period->scheme,
+                    'jumlah_dana'     => $propose->final_amount,
+                    'lama_penelitian' => $propose->time_period,
+                    'tahun'           => $period->years,
+                    'posisi'          => $research->position,
+                    'status'          => $status,
+                ];
+                $i++;
+            }
+            if ($researches->isEmpty())
+                $data['messages'] = 'Tidak ada penelitian';
         }
 
-        $count_data = count($data);
-        if ($count_data == 0)
-        {
-            $data['data'] = [];
-        }
-        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $count_data;
         $data = json_encode($data, JSON_PRETTY_PRINT);
 
         return response($data, 200)->header('Content-Type', 'application/json');
